@@ -35,22 +35,26 @@ public class MainPageTest extends BaseTest {
         Driver.get(searchTermData.url()); //Navigate to url based on the Test Data Record parameter
 
         //Test for Google Search
-        if(searchTermData.searchEngine() == "google"){
+        if(searchTermData.searchEngine().equals("google")){
             //Act - Search for a required string
             //1. Create an object of Google search page
             basePage = new GoogleSearch(Driver);
+
+            //2. Enter required search term
+            basePage.enterSearchTerm(searchTermData.searchTerm());
+
+            //3. Click on the search button
+            basePage.clickOnSearch();
+
         }
         //Test for Bing Search
-        else if (searchTermData.searchEngine() == "bing") {
+        else if (searchTermData.searchEngine().equals("bing")) {
             basePage = new BingSearch(Driver);
-            boolean flag = basePage.isPageLoaded();
+            basePage.isPageLoaded();
+
+            //2. Enter required search term
+            basePage.enterSearchTerm(searchTermData.searchTerm());
         }
-
-        //2. Enter required search term
-        basePage.enterSearchTerm(searchTermData.searchTerm());
-
-        //3. Click on the search button
-        basePage.clickOnSearch();
 
         //4. Wait for the page to load
         basePage.waitForPageLoad();
